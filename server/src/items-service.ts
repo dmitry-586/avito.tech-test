@@ -34,6 +34,10 @@ const compareByColumn = (left: Item, right: Item, column: ItemSortColumn): numbe
     return left.title.localeCompare(right.title);
   }
 
+  if (column === 'price') {
+    return (left.price ?? 0) - (right.price ?? 0);
+  }
+
   return new Date(left.createdAt).valueOf() - new Date(right.createdAt).valueOf();
 };
 
@@ -62,6 +66,15 @@ export const getItemsResponse = (items: Item[], query: ItemsQuery): ItemsRespons
   const activeSortDirection = sortDirection ?? DEFAULT_SORT.direction;
 
   const sortedItems = filteredItems.toSorted((left, right) => {
+    if (activeSortColumn === 'price') {
+      const leftHasNoPrice = left.price === null;
+      const rightHasNoPrice = right.price === null;
+
+      if (leftHasNoPrice !== rightHasNoPrice) {
+        return leftHasNoPrice ? 1 : -1;
+      }
+    }
+
     const primaryComparison = compareByColumn(left, right, activeSortColumn);
     const orderedPrimary =
       activeSortDirection === 'desc' ? -primaryComparison : primaryComparison;
