@@ -1,14 +1,11 @@
+import type {
+  ItemCard,
+  ItemCategory,
+  ItemSortColumn,
+  SortDirection,
+} from '@/shared/types/item'
+
 export type CardsViewVariant = 'default' | 'full-width'
-
-export type ItemCategory = 'auto' | 'electronics' | 'real_estate'
-
-export interface ItemCard {
-  id: number | string
-  category: ItemCategory
-  needsRevision: boolean
-  price: number
-  title: string
-}
 
 export interface ItemsFilters {
   categories: ItemCategory[]
@@ -25,10 +22,6 @@ export interface UseItemsParams {
   skip?: number
 }
 
-export type ItemSortColumn = 'title' | 'createdAt' | 'price'
-
-export type SortDirection = 'asc' | 'desc'
-
 export type SortValue =
   | 'title-asc'
   | 'title-desc'
@@ -41,3 +34,5 @@ export interface SortOption {
   label: string
   value: SortValue
 }
+
+export type { ItemCard, ItemCategory, ItemSortColumn, SortDirection }

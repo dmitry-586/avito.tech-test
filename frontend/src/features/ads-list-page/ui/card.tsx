@@ -1,4 +1,4 @@
-﻿import { cn } from '@/shared/lib'
+import { cn, formatPrice } from '@/shared/lib'
 import { Link } from 'react-router-dom'
 import { CATEGORY_LABELS } from '../model'
 import type { CardsViewVariant, ItemCard } from '../model'
@@ -65,7 +65,7 @@ export function Card({
         <div className={styles.content}>
           <div className={styles.category}>{categoryLabel}</div>
           <h2 className={styles.title}>{title}</h2>
-          <p className='font-semibold text-black/45'>{price.toLocaleString()} ₽</p>
+          <p className='font-semibold text-black/45'>{formatPrice(price)}</p>
           {needsRevision && (
             <div className='bg-light-yellow mt-auto flex w-fit items-center gap-2 rounded-lg px-2 py-0.5'>
               <span className='bg-yellow size-1.5 rounded-full' />

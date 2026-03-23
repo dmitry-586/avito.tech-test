@@ -1,32 +1,10 @@
-import { api, queryKeys } from '@/shared/lib'
+import { getItems, type GetItemsParams } from '@/services/items-api'
+import { queryKeys } from '@/shared/lib'
 import { useQuery } from '@tanstack/react-query'
-import type { ItemCard, UseItemsParams } from './types'
-
-interface ItemsGetOut {
-  items: ItemCard[]
-  total: number
-}
-
-interface FetchItemsParams {
-  categories?: string
-  limit?: number
-  needsRevision?: true
-  q?: string
-  sortColumn?: UseItemsParams['sortColumn']
-  sortDirection?: UseItemsParams['sortDirection']
-  skip?: number
-}
-
-const fetchItems = async (params?: FetchItemsParams): Promise<ItemsGetOut> => {
-  const { data } = await api.get<ItemsGetOut>('/items', {
-    params,
-  })
-
-  return data
-}
+import type { UseItemsParams } from './types'
 
 export function useItems(params?: UseItemsParams) {
-  const normalizedParams: FetchItemsParams = {
+  const normalizedParams: GetItemsParams = {
     categories: params?.categories?.length
       ? [...params.categories].sort().join(',')
       : undefined,
@@ -40,7 +18,7 @@ export function useItems(params?: UseItemsParams) {
 
   const { data, error, isFetching, isLoading } = useQuery({
     queryKey: queryKeys.items(normalizedParams),
-    queryFn: () => fetchItems(normalizedParams),
+    queryFn: () => getItems(normalizedParams),
   })
 
   const items = data?.items ?? []

@@ -38,6 +38,10 @@ body {
   min-height: 100vh;
 }
 
+body:has([data-page='ad-details']) {
+  background: #fff;
+}
+
 body {
   margin: 0;
 }

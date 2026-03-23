@@ -1,6 +1,9 @@
+import {
+  ITEM_CATEGORY_LABELS,
+  ITEM_CATEGORY_OPTIONS,
+} from '@/shared/constants/item'
 import type {
   CardsViewVariant,
-  ItemCategory,
   ItemSortColumn,
   ItemsFilters,
   SortDirection,
@@ -17,18 +20,9 @@ export const INITIAL_FILTERS: ItemsFilters = {
   needsRevisionOnly: false,
 }
 
-export const CATEGORY_OPTIONS: ReadonlyArray<readonly [ItemCategory, string]> =
-  [
-    ['auto', 'Авто'],
-    ['electronics', 'Электроника'],
-    ['real_estate', 'Недвижимость'],
-  ]
+export const CATEGORY_OPTIONS = ITEM_CATEGORY_OPTIONS
 
-export const CATEGORY_LABELS: Record<ItemCategory, string> = {
-  auto: 'Авто',
-  electronics: 'Электроника',
-  real_estate: 'Недвижимость',
-}
+export const CATEGORY_LABELS = ITEM_CATEGORY_LABELS
 
 export const SORT_OPTIONS: ReadonlyArray<SortOption> = [
   { value: 'title-asc', label: 'Название: А → Я' },
