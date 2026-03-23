@@ -58,6 +58,11 @@ export function CardsFilter() {
           <div className='flex items-center gap-5 md:justify-between'>
             <p className='text-sm font-medium'>Только требующие доработок</p>
             <Switch
+              classNames={{
+                track: 'cursor-pointer',
+              }}
+              size='md'
+              withThumbIndicator={false}
               checked={needsRevisionOnly}
               onChange={(event) =>
                 setNeedsRevisionOnly(event.currentTarget.checked)

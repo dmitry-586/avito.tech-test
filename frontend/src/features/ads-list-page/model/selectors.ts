@@ -21,7 +21,9 @@ export function useCardsHeaderStore() {
     useShallow((state) => ({
       searchQuery: state.searchQuery,
       setSearchQuery: state.setSearchQuery,
+      setSortValue: state.setSortValue,
       setViewVariant: state.setViewVariant,
+      sortValue: state.sortValue,
       viewVariant: state.viewVariant,
     })),
   )

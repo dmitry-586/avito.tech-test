@@ -1,23 +1,20 @@
+import { lazy } from 'react'
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 
-import { AdDetailsPage } from '@/features/ad-details-page/page'
-import { AdsListPage } from '@/features/ads-list-page/page'
+const AdsListPage = lazy(() =>
+  import('@/features/ads-list-page/page').then((m) => ({
+    default: m.AdsListPage,
+  })),
+)
+const AdDetailsPage = lazy(() =>
+  import('@/features/ad-details-page/page').then((m) => ({
+    default: m.AdDetailsPage,
+  })),
+)
 
 export const appRouter = createBrowserRouter([
-  {
-    element: <Navigate replace to='/ads' />,
-    path: '/',
-  },
-  {
-    element: <AdsListPage />,
-    path: '/ads',
-  },
-  {
-    element: <AdDetailsPage />,
-    path: '/ads/:id',
-  },
-  {
-    element: <Navigate replace to='/ads' />,
-    path: '*',
-  },
+  { path: '/', element: <Navigate replace to='/ads' /> },
+  { path: '/ads', element: <AdsListPage /> },
+  { path: '/ads/:id', element: <AdDetailsPage /> },
+  { path: '*', element: <Navigate replace to='/ads' /> },
 ])

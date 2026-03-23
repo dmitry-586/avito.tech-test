@@ -20,10 +20,24 @@ export interface UseItemsParams {
   limit?: number
   needsRevision?: true
   q?: string
+  sortColumn?: ItemSortColumn
+  sortDirection?: SortDirection
   skip?: number
 }
 
+export type ItemSortColumn = 'title' | 'createdAt' | 'price'
+
+export type SortDirection = 'asc' | 'desc'
+
+export type SortValue =
+  | 'title-asc'
+  | 'title-desc'
+  | 'createdAt-desc'
+  | 'createdAt-asc'
+  | 'price-asc'
+  | 'price-desc'
+
 export interface SortOption {
   label: string
-  value: string
+  value: SortValue
 }

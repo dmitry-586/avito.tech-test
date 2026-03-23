@@ -12,6 +12,8 @@ interface FetchItemsParams {
   limit?: number
   needsRevision?: true
   q?: string
+  sortColumn?: UseItemsParams['sortColumn']
+  sortDirection?: UseItemsParams['sortDirection']
   skip?: number
 }
 
@@ -31,6 +33,8 @@ export function useItems(params?: UseItemsParams) {
     limit: params?.limit,
     needsRevision: params?.needsRevision,
     q: params?.q,
+    sortColumn: params?.sortColumn,
+    sortDirection: params?.sortDirection,
     skip: params?.skip,
   }
 

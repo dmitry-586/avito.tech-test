@@ -1,19 +1,30 @@
 import { create } from 'zustand'
 
-import { DEFAULT_VIEW_VARIANT, INITIAL_FILTERS } from './constants'
-import type { CardsViewVariant, ItemCategory, ItemsFilters } from './types'
+import {
+  DEFAULT_SORT_VALUE,
+  DEFAULT_VIEW_VARIANT,
+  INITIAL_FILTERS,
+} from './constants'
+import type {
+  CardsViewVariant,
+  ItemCategory,
+  ItemsFilters,
+  SortValue,
+} from './types'
 
 interface AdsListPageStore {
   filters: ItemsFilters
   isCategoriesOpen: boolean
   page: number
   searchQuery: string
+  sortValue: SortValue
   viewVariant: CardsViewVariant
   resetFilters: () => void
   setCategoryChecked: (category: ItemCategory, isChecked: boolean) => void
   setNeedsRevisionOnly: (isChecked: boolean) => void
   setPage: (nextPage: number) => void
   setSearchQuery: (searchQuery: string) => void
+  setSortValue: (sortValue: SortValue) => void
   setViewVariant: (variant: CardsViewVariant) => void
   toggleCategories: () => void
 }
@@ -23,6 +34,7 @@ export const useAdsListPageStore = create<AdsListPageStore>()((set) => ({
   isCategoriesOpen: true,
   page: 1,
   searchQuery: '',
+  sortValue: DEFAULT_SORT_VALUE,
   viewVariant: DEFAULT_VIEW_VARIANT,
 
   resetFilters: () =>
@@ -66,6 +78,12 @@ export const useAdsListPageStore = create<AdsListPageStore>()((set) => ({
     set({
       page: 1,
       searchQuery,
+    }),
+
+  setSortValue: (sortValue) =>
+    set({
+      page: 1,
+      sortValue,
     }),
 
   setViewVariant: (variant) =>

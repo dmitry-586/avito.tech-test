@@ -3,7 +3,12 @@ import { Select, TextInput } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { LayoutGrid, List, type LucideIcon } from 'lucide-react'
 import type { ChangeEvent } from 'react'
-import { SORT_OPTIONS, useCardsHeaderStore, useCardsListItems } from '../model'
+import {
+  SORT_OPTIONS,
+  useCardsHeaderStore,
+  useCardsListItems,
+  type SortValue,
+} from '../model'
 
 type ViewToggleButtonProps = {
   icon: LucideIcon
@@ -28,13 +33,24 @@ function ViewToggleButton({
 }
 
 export function CardsHeader() {
-  const { searchQuery, setSearchQuery, setViewVariant, viewVariant } =
-    useCardsHeaderStore()
+  const {
+    searchQuery,
+    setSearchQuery,
+    setSortValue,
+    setViewVariant,
+    sortValue,
+    viewVariant,
+  } = useCardsHeaderStore()
   const { total } = useCardsListItems()
   const isMobile = useMediaQuery('(max-width: 500px)')
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.currentTarget.value)
+  }
+
+  const handleSortChange = (nextValue: string | null) => {
+    if (!nextValue) return
+    setSortValue(nextValue as SortValue)
   }
 
   return (
@@ -89,7 +105,8 @@ export function CardsHeader() {
           >
             <Select
               data={SORT_OPTIONS}
-              defaultValue={SORT_OPTIONS[0]?.value}
+              onChange={handleSortChange}
+              value={sortValue}
               classNames={{
                 wrapper: 'bg-white rounded-sm',
                 input:
