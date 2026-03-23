@@ -1,0 +1,51 @@
+@layer theme, base, mantine, components, utilities;
+@import 'tailwindcss';
+
+:root {
+  --background: #f7f5f8;
+  --foreground: #000;
+  --blue: #1890ff;
+  --yellow: #faad14;
+  --gray: #848388;
+  --light-gray: #d9d9d9;
+  --light-yellow: #f9f1e6;
+  --neutral: #f0f0f0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-blue: var(--blue);
+  --color-yellow: var(--yellow);
+  --color-gray: var(--gray);
+  --color-light-gray: var(--light-gray);
+  --color-light-yellow: var(--light-yellow);
+  --color-light-gray: var(--light-gray);
+  --color-neutral: var(--neutral);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
