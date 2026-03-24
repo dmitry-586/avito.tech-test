@@ -1,5 +1,6 @@
 import Fastify from 'fastify';
 import { treeifyError, ZodError } from 'zod';
+import fastifyCors from '@fastify/cors';
 
 import items from 'data/items.json' with { type: 'json' };
 import { getItemsResponse } from './src/items-service.ts';
@@ -14,16 +15,15 @@ const fastify = Fastify({
 });
 
 await fastify.register((await import('@fastify/middie')).default);
+await fastify.register(fastifyCors, {
+  origin: true,
+  methods: ['GET', 'PUT', 'OPTIONS'],
+});
 
 // Artificial delay to test loading states on client side.
 fastify.use((_, __, next) =>
   new Promise(res => setTimeout(res, 300 + Math.random() * 700)).then(next),
 );
-
-fastify.use((_, reply, next) => {
-  reply.setHeader('Access-Control-Allow-Origin', '*');
-  next();
-});
 
 interface ItemGetRequest extends Fastify.RequestGenericInterface {
   Params: {
