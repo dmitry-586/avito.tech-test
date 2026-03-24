@@ -111,7 +111,6 @@ export function CardsHeader() {
                 wrapper: 'bg-white rounded-sm',
                 input:
                   'h-5.5 min-h-5.5 min-w-60 px-3 text-sm focus:outline-none',
-                section: 'h-5.5',
                 dropdown: 'bg-background mt-1 rounded-sm p-1 shadow-lg',
                 options: 'bg-white p-1',
                 option: 'mt-1 text-sm',

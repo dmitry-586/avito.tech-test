@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { useItem } from './model'
+import { useItem } from '@/services'
 import {
   AdDetailsContent,
   AdDetailsErrorState,

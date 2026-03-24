@@ -1,3 +1,4 @@
+import { useDebouncedValue } from '@mantine/hooks'
 import { useShallow } from 'zustand/react/shallow'
 
 import { ITEMS_PER_PAGE, SORT_VALUE_TO_QUERY_PARAMS } from './constants'
@@ -13,7 +14,8 @@ export function useCardsListItems() {
       sortValue: state.sortValue,
     })),
   )
-  const normalizedSearchQuery = searchQuery.trim() || undefined
+  const [debouncedSearchQuery] = useDebouncedValue(searchQuery, 300)
+  const normalizedSearchQuery = debouncedSearchQuery.trim() || undefined
   const { sortColumn, sortDirection } = SORT_VALUE_TO_QUERY_PARAMS[sortValue]
 
   return useItems({

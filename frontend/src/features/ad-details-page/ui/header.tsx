@@ -1,8 +1,9 @@
-import { formatDateTime, formatPrice } from '@/shared/lib'
+﻿import { formatDateTime, formatPrice } from '@/shared/lib'
+import { Link } from 'react-router-dom'
 import type { ItemDetails } from '../model'
 
 interface AdDetailsHeaderProps {
-  item: Pick<ItemDetails, 'createdAt' | 'price' | 'title' | 'updatedAt'>
+  item: Pick<ItemDetails, 'createdAt' | 'id' | 'price' | 'title' | 'updatedAt'>
 }
 
 export function AdDetailsHeader({ item }: AdDetailsHeaderProps) {
@@ -14,10 +15,13 @@ export function AdDetailsHeader({ item }: AdDetailsHeaderProps) {
       </div>
 
       <div className='mt-3 flex justify-between gap-3 max-sm:flex-col sm:items-center'>
-        <button className='bg-blue flex w-fit items-center gap-2 rounded-lg px-3 py-2 text-white max-sm:order-1'>
+        <Link
+          to={`/ads/${item.id}/edit`}
+          className='bg-blue flex w-fit items-center gap-2 rounded-lg px-3 py-2 text-white max-sm:order-1'
+        >
           <p>Редактировать</p>
           <img src='/Edit.svg' alt='edit' />
-        </button>
+        </Link>
         <div className='text-gray flex flex-col max-sm:order-0 max-sm:text-sm sm:items-end'>
           <p>Опубликовано: {formatDateTime(item.createdAt)}</p>
           <p>Отредактировано: {formatDateTime(item.updatedAt)}</p>

@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@mantine/hooks'
-import { Loader2 } from 'lucide-react'
+import { PageErrorState, PageLoadingState } from '@/shared/ui'
 import {
   DEFAULT_VIEW_VARIANT,
   ITEMS_PER_PAGE,
@@ -17,15 +17,16 @@ export function CardsList() {
   const effectiveViewVariant = isMobile ? DEFAULT_VIEW_VARIANT : viewVariant
 
   if (isLoading) {
-    return (
-      <section className='flex w-full items-center justify-center'>
-        <Loader2 className='text-blue size-8 animate-spin' />
-      </section>
-    )
+    return <PageLoadingState />
   }
 
   if (error) {
-    return <p>Error while loading items</p>
+    return (
+      <PageErrorState
+        title='Мои объявления'
+        message='Ошибка при получении списка объявлений.'
+      />
+    )
   }
 
   const totalPages = Math.max(1, Math.ceil(total / ITEMS_PER_PAGE))

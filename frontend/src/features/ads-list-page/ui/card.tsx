@@ -1,4 +1,4 @@
-import { cn, formatPrice } from '@/shared/lib'
+﻿import { cn, formatPrice } from '@/shared/lib'
 import { Link } from 'react-router-dom'
 import { CATEGORY_LABELS } from '../model'
 import type { CardsViewVariant, ItemCard } from '../model'
@@ -60,7 +60,11 @@ export function Card({
         )}
       >
         <div className={styles.imageWrapper}>
-          <img className={styles.image} src='/placeholder-img.png' alt='Cover' />
+          <img
+            className={styles.image}
+            src='/placeholder-img.png'
+            alt='Cover'
+          />
         </div>
         <div className={styles.content}>
           <div className={styles.category}>{categoryLabel}</div>

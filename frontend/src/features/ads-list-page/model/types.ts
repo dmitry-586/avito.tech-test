@@ -1,9 +1,9 @@
-import type {
+﻿import type {
   ItemCard,
   ItemCategory,
   ItemSortColumn,
   SortDirection,
-} from '@/shared/types/item'
+} from '@/shared/types'
 
 export type CardsViewVariant = 'default' | 'full-width'
 

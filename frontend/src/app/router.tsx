@@ -11,11 +11,17 @@ const AdDetailsPage = lazy(() =>
     default: m.AdDetailsPage,
   })),
 )
+const AdEditPage = lazy(() =>
+  import('@/features/ad-edit-page/page').then((m) => ({
+    default: m.AdEditPage,
+  })),
+)
 
 const router = createBrowserRouter([
   { path: '/', element: <Navigate replace to='/ads' /> },
   { path: '/ads', element: <AdsListPage /> },
   { path: '/ads/:id', element: <AdDetailsPage /> },
+  { path: '/ads/:id/edit', element: <AdEditPage /> },
   { path: '*', element: <Navigate replace to='/ads' /> },
 ])
 

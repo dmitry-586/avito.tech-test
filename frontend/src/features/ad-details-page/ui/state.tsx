@@ -1,5 +1,4 @@
-import { Loader2 } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { PageErrorState, PageLoadingState } from '@/shared/ui'
 
 interface AdDetailsErrorStateProps {
   message: string
@@ -7,23 +6,15 @@ interface AdDetailsErrorStateProps {
 
 export function AdDetailsErrorState({ message }: AdDetailsErrorStateProps) {
   return (
-    <section className='rounded-2xl bg-white p-6'>
-      <h2 className='text-xl font-medium'>Карточка объявления</h2>
-      <p className='mt-2 text-sm text-black/60'>{message}</p>
-      <Link
-        to='/ads'
-        className='text-blue mt-4 inline-flex rounded-md border border-current px-3 py-1.5 text-sm'
-      >
-        К списку
-      </Link>
-    </section>
+    <PageErrorState
+      title='Карточка объявления'
+      message={message}
+      backHref='/ads'
+      backLabel='К списку'
+    />
   )
 }
 
 export function AdDetailsLoadingState() {
-  return (
-    <section className='flex w-full items-center justify-center py-12'>
-      <Loader2 className='text-blue size-8 animate-spin' />
-    </section>
-  )
+  return <PageLoadingState />
 }

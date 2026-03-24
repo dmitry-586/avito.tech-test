@@ -1,4 +1,11 @@
-import type { ItemDetails } from '@/shared/types/item'
+﻿import {
+  AUTO_TRANSMISSION_LABELS,
+  ELECTRONICS_CONDITION_LABELS,
+  ELECTRONICS_TYPE_LABELS,
+  ITEM_PARAMS_LABELS,
+  REAL_ESTATE_TYPE_LABELS,
+} from '@/shared/constants'
+import type { ItemDetails } from '@/shared/types'
 
 export interface ItemParamRow {
   label: string
@@ -10,89 +17,66 @@ export interface ItemParamsPresentation {
   missingParams: string[]
 }
 
-const TRANSMISSION_LABELS: Record<'automatic' | 'manual', string> = {
-  automatic: 'Автомат',
-  manual: 'Механика',
-}
-
-const REAL_ESTATE_TYPE_LABELS: Record<'flat' | 'house' | 'room', string> = {
-  flat: 'Квартира',
-  house: 'Дом',
-  room: 'Комната',
-}
-
-const ELECTRONICS_TYPE_LABELS: Record<'phone' | 'laptop' | 'misc', string> = {
-  phone: 'Телефон',
-  laptop: 'Ноутбук',
-  misc: 'Другое',
-}
-
-const ELECTRONICS_CONDITION_LABELS: Record<'new' | 'used', string> = {
-  new: 'Новый',
-  used: 'Б/у',
-}
-
 type RowInput = {
   label: string
   value: number | string | undefined
 }
 
 function getItemParamsRows(item: ItemDetails): RowInput[] {
-  const rows: RowInput[] = []
-
   switch (item.category) {
     case 'auto':
-      rows.push(
-        { label: 'Бренд', value: item.params.brand },
-        { label: 'Модель', value: item.params.model },
-        { label: 'Год выпуска', value: item.params.yearOfManufacture },
+      return [
+        { label: ITEM_PARAMS_LABELS.auto.brand, value: item.params.brand },
+        { label: ITEM_PARAMS_LABELS.auto.model, value: item.params.model },
         {
-          label: 'Коробка передач',
+          label: ITEM_PARAMS_LABELS.auto.yearOfManufacture,
+          value: item.params.yearOfManufacture,
+        },
+        {
+          label: ITEM_PARAMS_LABELS.auto.transmission,
           value: item.params.transmission
-            ? TRANSMISSION_LABELS[item.params.transmission]
+            ? AUTO_TRANSMISSION_LABELS[item.params.transmission]
             : undefined,
         },
-        { label: 'Пробег', value: item.params.mileage },
-        { label: 'Мощность двигателя', value: item.params.enginePower },
-      )
-      break
+        { label: ITEM_PARAMS_LABELS.auto.mileage, value: item.params.mileage },
+        {
+          label: ITEM_PARAMS_LABELS.auto.enginePower,
+          value: item.params.enginePower,
+        },
+      ]
 
     case 'real_estate':
-      rows.push(
+      return [
         {
-          label: 'Тип',
+          label: ITEM_PARAMS_LABELS.real_estate.type,
           value: item.params.type
             ? REAL_ESTATE_TYPE_LABELS[item.params.type]
             : undefined,
         },
-        { label: 'Адрес', value: item.params.address },
-        { label: 'Площадь', value: item.params.area },
-        { label: 'Этаж', value: item.params.floor },
-      )
-      break
+        { label: ITEM_PARAMS_LABELS.real_estate.address, value: item.params.address },
+        { label: ITEM_PARAMS_LABELS.real_estate.area, value: item.params.area },
+        { label: ITEM_PARAMS_LABELS.real_estate.floor, value: item.params.floor },
+      ]
 
     case 'electronics':
-      rows.push(
+      return [
         {
-          label: 'Тип',
+          label: ITEM_PARAMS_LABELS.electronics.type,
           value: item.params.type
             ? ELECTRONICS_TYPE_LABELS[item.params.type]
             : undefined,
         },
-        { label: 'Бренд', value: item.params.brand },
-        { label: 'Модель', value: item.params.model },
+        { label: ITEM_PARAMS_LABELS.electronics.brand, value: item.params.brand },
+        { label: ITEM_PARAMS_LABELS.electronics.model, value: item.params.model },
         {
-          label: 'Состояние',
+          label: ITEM_PARAMS_LABELS.electronics.condition,
           value: item.params.condition
             ? ELECTRONICS_CONDITION_LABELS[item.params.condition]
             : undefined,
         },
-        { label: 'Цвет', value: item.params.color },
-      )
-      break
+        { label: ITEM_PARAMS_LABELS.electronics.color, value: item.params.color },
+      ]
   }
-
-  return rows
 }
 
 export function getItemParamsPresentation(
@@ -131,3 +115,4 @@ export function getItemParamsPresentation(
 
   return { filledParams, missingParams }
 }
+

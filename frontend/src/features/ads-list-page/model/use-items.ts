@@ -1,4 +1,4 @@
-import { getItems, type GetItemsParams } from '@/services/items-api'
+﻿import { getItems, type GetItemsParams } from '@/services'
 import { queryKeys } from '@/shared/lib'
 import { useQuery } from '@tanstack/react-query'
 import type { UseItemsParams } from './types'

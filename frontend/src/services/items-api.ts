@@ -1,9 +1,13 @@
-import type {
+﻿import type {
+  AutoItemParams,
+  ElectronicsItemParams,
   ItemCard,
+  ItemCategory,
   ItemDetails,
   ItemSortColumn,
+  RealEstateItemParams,
   SortDirection,
-} from '@/shared/types/item'
+} from '@/shared/types'
 import { api } from './api'
 
 export interface GetItemsOut {
@@ -21,7 +25,17 @@ export interface GetItemsParams {
   skip?: number
 }
 
-export const getItems = async (params?: GetItemsParams): Promise<GetItemsOut> => {
+export interface UpdateItemIn {
+  category: ItemCategory
+  title: string
+  description?: string
+  price: number
+  params: AutoItemParams | RealEstateItemParams | ElectronicsItemParams
+}
+
+export const getItems = async (
+  params?: GetItemsParams,
+): Promise<GetItemsOut> => {
   const { data } = await api.get<GetItemsOut>('/items', { params })
 
   return data
@@ -29,6 +43,15 @@ export const getItems = async (params?: GetItemsParams): Promise<GetItemsOut> =>
 
 export const getItemById = async (id: string): Promise<ItemDetails> => {
   const { data } = await api.get<ItemDetails>(`/items/${id}`)
+
+  return data
+}
+
+export const updateItemById = async (
+  id: string,
+  payload: UpdateItemIn,
+): Promise<ItemDetails> => {
+  const { data } = await api.put<ItemDetails>(`/items/${id}`, payload)
 
   return data
 }

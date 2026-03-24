@@ -1,7 +1,4 @@
-import {
-  ITEM_CATEGORY_LABELS,
-  ITEM_CATEGORY_OPTIONS,
-} from '@/shared/constants/item'
+import { ITEM_CATEGORY_LABELS, ITEM_CATEGORY_OPTIONS } from '@/shared/constants'
 import type {
   CardsViewVariant,
   ItemSortColumn,

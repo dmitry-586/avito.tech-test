@@ -1,4 +1,4 @@
-﻿import { Field, Checkbox as HeadlessCheckbox, Label } from '@headlessui/react'
+import { Field, Checkbox as HeadlessCheckbox, Label } from '@headlessui/react'
 import type { ComponentProps, ReactNode } from 'react'
 import { cn } from '../lib'
 

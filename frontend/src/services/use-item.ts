@@ -1,6 +1,6 @@
-import { getItemById } from '@/services/items-api'
-import { queryKeys } from '@/shared/lib'
 import { useQuery } from '@tanstack/react-query'
+import { queryKeys } from '@/shared/lib'
+import { getItemById } from './items-api'
 
 export function useItem(id?: string) {
   const itemId = id?.trim() ?? ''
