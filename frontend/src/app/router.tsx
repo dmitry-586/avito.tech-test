@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 
 const AdsListPage = lazy(() =>
   import('@/features/ads-list-page/page').then((m) => ({
@@ -12,9 +12,13 @@ const AdDetailsPage = lazy(() =>
   })),
 )
 
-export const appRouter = createBrowserRouter([
+const router = createBrowserRouter([
   { path: '/', element: <Navigate replace to='/ads' /> },
   { path: '/ads', element: <AdsListPage /> },
   { path: '/ads/:id', element: <AdDetailsPage /> },
   { path: '*', element: <Navigate replace to='/ads' /> },
 ])
+
+export function AppRouter() {
+  return <RouterProvider router={router} />
+}

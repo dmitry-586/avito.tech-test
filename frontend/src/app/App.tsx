@@ -1,8 +1,7 @@
 import { Loader2 } from 'lucide-react'
 import { Suspense } from 'react'
-import { RouterProvider } from 'react-router-dom'
 import { AppProviders } from './providers'
-import { appRouter } from './router'
+import { AppRouter } from './router'
 import './styles/global.css'
 
 export function App() {
@@ -15,7 +14,7 @@ export function App() {
           </section>
         }
       >
-        <RouterProvider router={appRouter} />
+        <AppRouter />
       </Suspense>
     </AppProviders>
   )

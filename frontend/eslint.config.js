@@ -43,8 +43,6 @@ export default defineConfig([
           varsIgnorePattern: '^_',
         },
       ],
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
     },
   },
 ])

@@ -1,9 +1,13 @@
 import type { ItemDetails } from '@/shared/types/item'
 
 export interface ItemParamRow {
-  isFilled: boolean
   label: string
   value: string
+}
+
+export interface ItemParamsPresentation {
+  filledParams: ItemParamRow[]
+  missingParams: string[]
 }
 
 const TRANSMISSION_LABELS: Record<'automatic' | 'manual', string> = {
@@ -33,7 +37,7 @@ type RowInput = {
   value: number | string | undefined
 }
 
-export function getItemParamsRows(item: ItemDetails): ItemParamRow[] {
+function getItemParamsRows(item: ItemDetails): RowInput[] {
   const rows: RowInput[] = []
 
   switch (item.category) {
@@ -88,22 +92,42 @@ export function getItemParamsRows(item: ItemDetails): ItemParamRow[] {
       break
   }
 
-  return rows.map((row) => {
-    if (row.value == null || row.value === '') {
-      return {
-        isFilled: false,
-        label: row.label,
-        value: 'Не указано',
-      }
+  return rows
+}
+
+export function getItemParamsPresentation(
+  item: ItemDetails,
+): ItemParamsPresentation {
+  const filledParams: ItemParamRow[] = []
+  const missingParams: string[] = []
+
+  for (const row of getItemParamsRows(item)) {
+    if (row.value == null) {
+      missingParams.push(row.label)
+      continue
     }
 
-    return {
-      isFilled: true,
-      label: row.label,
-      value:
-        typeof row.value === 'number'
-          ? row.value.toLocaleString('ru-RU')
-          : row.value,
+    if (typeof row.value === 'string') {
+      const value = row.value.trim()
+
+      if (value === '') {
+        missingParams.push(row.label)
+        continue
+      }
+
+      filledParams.push({
+        label: row.label,
+        value,
+      })
+
+      continue
     }
-  })
+
+    filledParams.push({
+      label: row.label,
+      value: row.value.toLocaleString('ru-RU'),
+    })
+  }
+
+  return { filledParams, missingParams }
 }

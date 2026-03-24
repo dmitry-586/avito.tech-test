@@ -3,23 +3,17 @@ import { queryKeys } from '@/shared/lib'
 import { useQuery } from '@tanstack/react-query'
 
 export function useItem(id?: string) {
-  const normalizedId = id?.trim()
+  const itemId = id?.trim() ?? ''
+  const isEnabled = itemId.length > 0
 
-  const { data, error, isFetching, isLoading } = useQuery({
-    queryKey: queryKeys.item(normalizedId),
-    queryFn: async () => {
-      if (!normalizedId) {
-        throw new Error('Item id is required')
-      }
-
-      return getItemById(normalizedId)
-    },
-    enabled: Boolean(normalizedId),
+  const { data, error, isLoading } = useQuery({
+    queryKey: queryKeys.item(itemId),
+    queryFn: () => getItemById(itemId),
+    enabled: isEnabled,
   })
 
   return {
     error,
-    isFetching,
     isLoading,
     item: data ?? null,
   }
