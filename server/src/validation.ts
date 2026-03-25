@@ -115,30 +115,12 @@ export const SuggestPriceInSchema = AiEndpointInSchema;
 export type ImproveDescriptionInput = z.infer<typeof ImproveDescriptionInSchema>;
 export type SuggestPriceInput = z.infer<typeof SuggestPriceInSchema>;
 
-export const ImproveDescriptionOutSchema = z.object({
-  description: z.string().trim().min(1),
+export const AiMessageOutSchema = z.object({
+  message: z.string().trim().min(1),
 });
-export type ImproveDescriptionOutput = z.infer<typeof ImproveDescriptionOutSchema>;
 
-export const SuggestPriceOutSchema = z
-  .object({
-    suggestedPrice: z.number().int().positive(),
-    priceMin: z.number().int().positive(),
-    priceMax: z.number().int().positive(),
-    reason: z.string().trim().min(1),
-    confidence: z.enum(['low', 'medium', 'high']),
-  })
-  .refine(result => result.priceMin <= result.priceMax, {
-    message: 'priceMin should be less than or equal to priceMax',
-    path: ['priceMin'],
-  })
-  .refine(
-    result =>
-      result.suggestedPrice >= result.priceMin &&
-      result.suggestedPrice <= result.priceMax,
-    {
-      message: 'suggestedPrice should be in [priceMin, priceMax] range',
-      path: ['suggestedPrice'],
-    },
-  );
+export const ImproveDescriptionOutSchema = AiMessageOutSchema;
+export const SuggestPriceOutSchema = AiMessageOutSchema;
+
+export type ImproveDescriptionOutput = z.infer<typeof ImproveDescriptionOutSchema>;
 export type SuggestPriceOutput = z.infer<typeof SuggestPriceOutSchema>;

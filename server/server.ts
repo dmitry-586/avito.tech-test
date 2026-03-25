@@ -172,8 +172,9 @@ fastify.post<AiRequest>('/ai/suggest-price', async (request, reply) =>
 );
 
 const port = Number(process.env.PORT || 8080);
+const host = process.env.HOST?.trim() || '0.0.0.0';
 
-fastify.listen({ port }, function (err, _address) {
+fastify.listen({ port, host }, function (err, _address) {
   if (err) {
     fastify.log.error(err);
     process.exit(1);
