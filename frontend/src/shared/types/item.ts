@@ -2,6 +2,13 @@ export type ItemId = number | string
 
 export type ItemCategory = 'auto' | 'electronics' | 'real_estate'
 
+export type OptionTuple<TValue extends string> = readonly [TValue, string]
+
+export type SelectOption<TValue extends string> = Readonly<{
+  label: string
+  value: TValue
+}>
+
 export interface AutoItemParams {
   brand?: string
   model?: string
@@ -58,3 +65,12 @@ export type ItemDetails =
 export type ItemSortColumn = 'title' | 'createdAt' | 'price'
 
 export type SortDirection = 'asc' | 'desc'
+
+export interface ItemListQueryBase {
+  limit?: number
+  needsRevision?: true
+  q?: string
+  sortColumn?: ItemSortColumn
+  sortDirection?: SortDirection
+  skip?: number
+}

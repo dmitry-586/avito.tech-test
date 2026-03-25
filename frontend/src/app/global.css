@@ -10,6 +10,9 @@
   --red: #ff4d4f;
   --pink: #ffccc7;
   --gray: #848388;
+  --ai-error-bg: #fee9e7;
+  --ai-error-text: #c00f0c;
+  --ai-error-btn: #fcb3ad;
   --light-red: #fff1f0;
   --light-gray: #d9d9d9;
   --light-yellow: #f9f1e6;
@@ -25,7 +28,9 @@
   --color-red: var(--red);
   --color-pink: var(--pink);
   --color-gray: var(--gray);
-  --color-light-gray: var(--light-gray);
+  --color-ai-error-bg: var(--ai-error-bg);
+  --color-ai-error-text: var(--ai-error-text);
+  --color-ai-error-btn: var(--ai-error-btn);
   --color-light-yellow: var(--light-yellow);
   --color-light-gray: var(--light-gray);
   --color-neutral: var(--neutral);
@@ -48,11 +53,11 @@ body {
   min-height: 100vh;
 }
 
-body:has([data-page='ad-details']) {
+body:has([data-page='details']) {
   background: #fff;
 }
 
-body:has([data-page='ad-edit']) {
+body:has([data-page='edit']) {
   background: #fff;
 }
 

@@ -1,27 +1,27 @@
 import { lazy } from 'react'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 
-const AdsListPage = lazy(() =>
-  import('@/features/ads-list-page/page').then((m) => ({
-    default: m.AdsListPage,
+const ListPage = lazy(() =>
+  import('@/features/list-page/page').then((m) => ({
+    default: m.ListPage,
   })),
 )
-const AdDetailsPage = lazy(() =>
-  import('@/features/ad-details-page/page').then((m) => ({
-    default: m.AdDetailsPage,
+const DetailsPage = lazy(() =>
+  import('@/features/details-page/page').then((m) => ({
+    default: m.DetailsPage,
   })),
 )
-const AdEditPage = lazy(() =>
-  import('@/features/ad-edit-page/page').then((m) => ({
-    default: m.AdEditPage,
+const EditPage = lazy(() =>
+  import('@/features/edit-page/page').then((m) => ({
+    default: m.EditPage,
   })),
 )
 
 const router = createBrowserRouter([
   { path: '/', element: <Navigate replace to='/ads' /> },
-  { path: '/ads', element: <AdsListPage /> },
-  { path: '/ads/:id', element: <AdDetailsPage /> },
-  { path: '/ads/:id/edit', element: <AdEditPage /> },
+  { path: '/ads', element: <ListPage /> },
+  { path: '/ads/:id', element: <DetailsPage /> },
+  { path: '/ads/:id/edit', element: <EditPage /> },
   { path: '*', element: <Navigate replace to='/ads' /> },
 ])
 

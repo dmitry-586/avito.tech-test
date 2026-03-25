@@ -1,16 +1,11 @@
-﻿import type {
+import type {
   AutoItemParams,
   ElectronicsItemParams,
   ItemCategory,
+  OptionTuple,
   RealEstateItemParams,
+  SelectOption,
 } from '@/shared/types'
-
-type SelectOption<TValue extends string> = Readonly<{
-  label: string
-  value: TValue
-}>
-
-type OptionTuple<TValue extends string> = readonly [TValue, string]
 
 type AutoTransmission = NonNullable<AutoItemParams['transmission']>
 type RealEstateType = NonNullable<RealEstateItemParams['type']>
@@ -82,13 +77,11 @@ export const ELECTRONICS_TYPE_OPTIONS: ReadonlyArray<
 }))
 
 export const ELECTRONICS_CONDITION_VALUES = ['new', 'used'] as const
-export const ELECTRONICS_CONDITION_LABELS: Record<
-  ElectronicsCondition,
-  string
-> = {
-  new: 'Новый',
-  used: 'Б/у',
-}
+export const ELECTRONICS_CONDITION_LABELS: Record<ElectronicsCondition, string> =
+  {
+    new: 'Новый',
+    used: 'Б/у',
+  }
 export const ELECTRONICS_CONDITION_OPTIONS: ReadonlyArray<
   SelectOption<ElectronicsCondition>
 > = ELECTRONICS_CONDITION_VALUES.map((value) => ({

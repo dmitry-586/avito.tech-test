@@ -1,0 +1,33 @@
+﻿import type { ItemDetails } from '@/shared/types'
+import { getItemParamsPresentation } from '../item-params'
+import { Header } from './header'
+import { Parameters } from './params'
+
+interface ContentProps {
+  item: ItemDetails
+}
+
+export function Content({ item }: ContentProps) {
+  const { filledParams, missingParams } = getItemParamsPresentation(item)
+  const description = item.description?.trim() || 'Отсутствует'
+
+  return (
+    <section data-page='details' className='py-5'>
+      <Header item={item} />
+      <hr className='my-6 border-gray-300 sm:my-8' />
+      <div className='grid gap-6 md:grid-cols-[1fr_1fr] lg:grid-cols-[auto_1.2fr]'>
+        <div className='bg-neutral/30 h-full min-h-70 overflow-hidden rounded-lg md:max-w-120'>
+          <img
+            className='block h-full w-full object-cover'
+            src='/placeholder-img.png'
+            alt='Обложка объявления'
+          />
+        </div>
+
+        <Parameters filledParams={filledParams} missingParams={missingParams} />
+      </div>
+      <h3 className='mt-8 text-xl font-medium sm:text-[22px]'>Описание</h3>
+      <p className='mt-4'>{description}</p>
+    </section>
+  )
+}

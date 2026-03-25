@@ -1,9 +1,12 @@
 export {
-  getItemById,
+  improveDescription,
+  suggestPrice,
+  type AiEndpointIn,
+} from './ai'
+export {
   getItems,
   updateItemById,
-  type GetItemsOut,
   type GetItemsParams,
   type UpdateItemIn,
-} from './items-api'
-export { useItem } from './use-item'
+} from './items/api'
+export { useItem } from './items/use-item'
