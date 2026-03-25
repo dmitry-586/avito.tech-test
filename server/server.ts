@@ -1,12 +1,22 @@
-import Fastify from 'fastify';
+import Fastify, { type FastifyReply } from 'fastify';
 import { treeifyError, ZodError } from 'zod';
 import fastifyCors from '@fastify/cors';
 
 import items from 'data/items.json' with { type: 'json' };
 import { getItemsResponse } from './src/items-service.ts';
+import {
+  improveDescription,
+  OllamaServiceError,
+  suggestPrice,
+} from './src/ollama-service.ts';
 import type { Item } from './src/types.ts';
 import { doesItemNeedRevision } from './src/utils.ts';
-import { ItemUpdateInSchema, ItemsGetInQuerySchema } from './src/validation.ts';
+import {
+  ImproveDescriptionInSchema,
+  ItemUpdateInSchema,
+  ItemsGetInQuerySchema,
+  SuggestPriceInSchema,
+} from './src/validation.ts';
 
 const ITEMS = items as Item[];
 
@@ -17,7 +27,7 @@ const fastify = Fastify({
 await fastify.register((await import('@fastify/middie')).default);
 await fastify.register(fastifyCors, {
   origin: true,
-  methods: ['GET', 'PUT', 'OPTIONS'],
+  methods: ['GET', 'PUT', 'POST', 'OPTIONS'],
 });
 
 // Artificial delay to test loading states on client side.
@@ -79,6 +89,31 @@ interface ItemUpdateRequest extends Fastify.RequestGenericInterface {
   };
 }
 
+interface AiRequest extends Fastify.RequestGenericInterface {
+  Body: unknown;
+}
+
+const handleAiRequest = async <T>(
+  reply: FastifyReply,
+  requestHandler: () => Promise<T> | T,
+): Promise<T | void> => {
+  try {
+    return await requestHandler();
+  } catch (error) {
+    if (error instanceof ZodError) {
+      reply.status(400).send({ success: false, error: treeifyError(error) });
+      return;
+    }
+
+    if (error instanceof OllamaServiceError) {
+      reply.status(error.statusCode).send({ success: false, error: error.message });
+      return;
+    }
+
+    throw error;
+  }
+};
+
 fastify.put<ItemUpdateRequest>('/items/:id', (request, reply) => {
   const itemId = Number(request.params.id);
 
@@ -121,6 +156,20 @@ fastify.put<ItemUpdateRequest>('/items/:id', (request, reply) => {
     throw error;
   }
 });
+
+fastify.post<AiRequest>('/ai/improve-description', async (request, reply) =>
+  handleAiRequest(reply, async () => {
+    const parsedBody = ImproveDescriptionInSchema.parse(request.body);
+    return improveDescription(parsedBody);
+  }),
+);
+
+fastify.post<AiRequest>('/ai/suggest-price', async (request, reply) =>
+  handleAiRequest(reply, async () => {
+    const parsedBody = SuggestPriceInSchema.parse(request.body);
+    return suggestPrice(parsedBody);
+  }),
+);
 
 const port = Number(process.env.PORT || 8080);
 

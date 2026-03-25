@@ -87,3 +87,58 @@ export const ItemUpdateInSchema = z
       }),
     ]),
   );
+
+const AiInputBaseSchema = z.object({
+  title: z.string().trim().min(1),
+  description: z.string().optional(),
+  price: z.number().nullable().optional(),
+});
+
+const AiCategoryParamsSchema = z.discriminatedUnion('category', [
+  z.object({
+    category: z.literal(ITEM_CATEGORIES.AUTO),
+    params: AutoItemParamsSchema.partial(),
+  }),
+  z.object({
+    category: z.literal(ITEM_CATEGORIES.REAL_ESTATE),
+    params: RealEstateItemParamsSchema.partial(),
+  }),
+  z.object({
+    category: z.literal(ITEM_CATEGORIES.ELECTRONICS),
+    params: ElectronicsEstateItemParamsSchema.partial(),
+  }),
+]);
+
+export const AiEndpointInSchema = AiInputBaseSchema.and(AiCategoryParamsSchema);
+export const ImproveDescriptionInSchema = AiEndpointInSchema;
+export const SuggestPriceInSchema = AiEndpointInSchema;
+export type ImproveDescriptionInput = z.infer<typeof ImproveDescriptionInSchema>;
+export type SuggestPriceInput = z.infer<typeof SuggestPriceInSchema>;
+
+export const ImproveDescriptionOutSchema = z.object({
+  description: z.string().trim().min(1),
+});
+export type ImproveDescriptionOutput = z.infer<typeof ImproveDescriptionOutSchema>;
+
+export const SuggestPriceOutSchema = z
+  .object({
+    suggestedPrice: z.number().int().positive(),
+    priceMin: z.number().int().positive(),
+    priceMax: z.number().int().positive(),
+    reason: z.string().trim().min(1),
+    confidence: z.enum(['low', 'medium', 'high']),
+  })
+  .refine(result => result.priceMin <= result.priceMax, {
+    message: 'priceMin should be less than or equal to priceMax',
+    path: ['priceMin'],
+  })
+  .refine(
+    result =>
+      result.suggestedPrice >= result.priceMin &&
+      result.suggestedPrice <= result.priceMax,
+    {
+      message: 'suggestedPrice should be in [priceMin, priceMax] range',
+      path: ['suggestedPrice'],
+    },
+  );
+export type SuggestPriceOutput = z.infer<typeof SuggestPriceOutSchema>;
