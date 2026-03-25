@@ -1,10 +1,36 @@
 import { z } from 'zod';
 
+const parseEnvNumber = (
+  raw: string | undefined,
+  fallback: number,
+  options?: { min?: number },
+): number => {
+  if (!raw || raw.trim().length === 0) {
+    return fallback;
+  }
+
+  const normalized = raw.replace(/_/g, '').trim();
+  const parsed = Number(normalized);
+  if (!Number.isFinite(parsed)) {
+    return fallback;
+  }
+
+  if (options?.min !== undefined && parsed < options.min) {
+    return fallback;
+  }
+
+  return parsed;
+};
+
 const OLLAMA_URL =
   process.env.OLLAMA_URL?.trim() || 'http://127.0.0.1:11434/api/generate';
-const OLLAMA_TIMEOUT_MS = Number(process.env.OLLAMA_TIMEOUT_MS ?? 30_000);
+const OLLAMA_TIMEOUT_MS = parseEnvNumber(process.env.OLLAMA_TIMEOUT_MS, 30_000, {
+  min: 1,
+});
 const OLLAMA_MODEL = process.env.OLLAMA_MODEL?.trim() || 'llama3';
-const OLLAMA_TEMPERATURE = Number(process.env.OLLAMA_TEMPERATURE ?? 0.1);
+const OLLAMA_TEMPERATURE = parseEnvNumber(process.env.OLLAMA_TEMPERATURE, 0.1, {
+  min: 0,
+});
 
 const OllamaGenerateResponseSchema = z.looseObject({
   response: z.string().optional(),

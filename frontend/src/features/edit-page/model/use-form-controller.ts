@@ -42,8 +42,8 @@ export function useEditFormController({
     onApplyDescription: (description: string) => {
       applyFieldValue(setValue, 'description', description)
     },
-    onApplyPrice: (price: string) => {
-      applyFieldValue(setValue, 'price', price)
+    onApplyPrice: (price: number) => {
+      applyFieldValue(setValue, 'price', String(price))
     },
   })
 

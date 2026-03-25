@@ -20,3 +20,7 @@ export type AiEndpointIn = AiInputBase & AiCategoryPayload
 export interface AiEndpointOut {
   message: string
 }
+
+export interface SuggestPriceOut extends AiEndpointOut {
+  price: number
+}

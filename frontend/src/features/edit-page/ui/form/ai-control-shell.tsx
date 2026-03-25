@@ -6,7 +6,10 @@ import type { BaseAiControlProps } from './types'
 
 const AiControlButton = forwardRef<
   HTMLButtonElement,
-  Pick<BaseAiControlProps, 'buttonLabel' | 'isDisabled' | 'isPending' | 'request'>
+  Pick<
+    BaseAiControlProps,
+    'buttonLabel' | 'isDisabled' | 'isPending' | 'request'
+  >
 >(function AiControlButton(
   { buttonLabel, isDisabled, isPending, request },
   ref,
@@ -21,7 +24,10 @@ const AiControlButton = forwardRef<
     >
       <span className='flex items-center gap-2'>
         {isPending ? (
-          <Loader2 aria-hidden='true' className='size-4 shrink-0 animate-spin' />
+          <Loader2
+            aria-hidden='true'
+            className='size-4 shrink-0 animate-spin'
+          />
         ) : (
           <img
             src='/Bulb.svg'

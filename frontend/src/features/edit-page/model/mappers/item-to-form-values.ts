@@ -4,10 +4,7 @@
   ItemDetails,
   RealEstateItemParams,
 } from '@/shared/types'
-import {
-  EDIT_FORM_DEFAULT_VALUES,
-  type EditFormValues,
-} from '../../config'
+import { EDIT_FORM_DEFAULT_VALUES, type EditFormValues } from '../../config'
 
 type AutoFormFields = Pick<
   EditFormValues,
@@ -87,4 +84,3 @@ export function mapItemToFormValues(item: ItemDetails): EditFormValues {
       }
   }
 }
-

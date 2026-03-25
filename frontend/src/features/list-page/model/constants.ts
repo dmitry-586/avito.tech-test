@@ -1,4 +1,8 @@
-import type { ItemSortColumn, SelectOption, SortDirection } from '@/shared/types'
+import type {
+  ItemSortColumn,
+  SelectOption,
+  SortDirection,
+} from '@/shared/types'
 import type { ItemsFilters, ViewVariant } from './types'
 
 type SortConfigEntry = {
@@ -52,7 +56,9 @@ export const INITIAL_FILTERS: ItemsFilters = {
 }
 
 export const SORT_OPTIONS: ReadonlyArray<SelectOption<SortValue>> = (
-  Object.entries(SORT_CONFIG) as Array<[SortValue, (typeof SORT_CONFIG)[SortValue]]>
+  Object.entries(SORT_CONFIG) as Array<
+    [SortValue, (typeof SORT_CONFIG)[SortValue]]
+  >
 ).map(([value, { label }]) => ({
   label,
   value,

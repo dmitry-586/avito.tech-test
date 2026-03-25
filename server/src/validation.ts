@@ -120,7 +120,9 @@ export const AiMessageOutSchema = z.object({
 });
 
 export const ImproveDescriptionOutSchema = AiMessageOutSchema;
-export const SuggestPriceOutSchema = AiMessageOutSchema;
+export const SuggestPriceOutSchema = AiMessageOutSchema.extend({
+  price: z.string().trim().min(1),
+});
 
 export type ImproveDescriptionOutput = z.infer<typeof ImproveDescriptionOutSchema>;
 export type SuggestPriceOutput = z.infer<typeof SuggestPriceOutSchema>;

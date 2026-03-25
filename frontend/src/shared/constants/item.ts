@@ -77,11 +77,13 @@ export const ELECTRONICS_TYPE_OPTIONS: ReadonlyArray<
 }))
 
 export const ELECTRONICS_CONDITION_VALUES = ['new', 'used'] as const
-export const ELECTRONICS_CONDITION_LABELS: Record<ElectronicsCondition, string> =
-  {
-    new: 'Новый',
-    used: 'Б/у',
-  }
+export const ELECTRONICS_CONDITION_LABELS: Record<
+  ElectronicsCondition,
+  string
+> = {
+  new: 'Новый',
+  used: 'Б/у',
+}
 export const ELECTRONICS_CONDITION_OPTIONS: ReadonlyArray<
   SelectOption<ElectronicsCondition>
 > = ELECTRONICS_CONDITION_VALUES.map((value) => ({

@@ -15,7 +15,7 @@ export function Header({ item }: HeaderProps) {
           <Link
             to='/'
             aria-label='На главную'
-            className='bg-light-gray inline-flex items-center rounded-lg px-2 py-1 text-gray'
+            className='bg-light-gray text-gray inline-flex items-center rounded-lg px-2 py-1'
           >
             <ArrowLeft className='size-5.5' aria-hidden='true' />
           </Link>

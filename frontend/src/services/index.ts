@@ -1,8 +1,4 @@
-export {
-  improveDescription,
-  suggestPrice,
-  type AiEndpointIn,
-} from './ai'
+export { improveDescription, suggestPrice, type AiEndpointIn } from './ai'
 export {
   getItems,
   updateItemById,

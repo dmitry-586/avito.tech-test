@@ -1,8 +1,4 @@
-import {
-  improveDescription,
-  suggestPrice,
-  type AiEndpointIn,
-} from '@/services'
+import { improveDescription, suggestPrice, type AiEndpointIn } from '@/services'
 import { getDescriptionButtonLabel, getPriceButtonLabel } from './labels'
 import { useAiRequest } from './use-ai-request'
 
@@ -11,7 +7,7 @@ interface UseAiOptions {
   isDescriptionEmpty: boolean
   isRequestDisabled: boolean
   onApplyDescription: (description: string) => void
-  onApplyPrice: (price: string) => void
+  onApplyPrice: (price: number) => void
 }
 
 function requestIfEnabled(isRequestDisabled: boolean, request: () => void) {
@@ -50,13 +46,13 @@ export function useAi({
   )
 
   const applySuggestedPrice = () => {
-    const message =
-      priceState.status === 'success' ? priceState.result?.message : null
-    if (!message) {
+    const price =
+      priceState.status === 'success' ? priceState.result?.price : null
+    if (price == null) {
       return
     }
 
-    onApplyPrice(message)
+    onApplyPrice(price)
     priceState.closeTooltip()
   }
 

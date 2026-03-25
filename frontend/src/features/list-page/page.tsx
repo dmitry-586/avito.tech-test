@@ -9,14 +9,8 @@ export function ListPage() {
       <Header total={total} />
       <div className='mt-4 flex gap-6 max-lg:flex-col'>
         <Filter />
-        <List
-          error={error}
-          isLoading={isLoading}
-          items={items}
-          total={total}
-        />
+        <List error={error} isLoading={isLoading} items={items} total={total} />
       </div>
     </>
   )
 }
-

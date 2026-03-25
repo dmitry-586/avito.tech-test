@@ -29,7 +29,7 @@ ollama pull llama3
 ollama serve
 ```
 
-3. Проверить `.env` (пример):
+3. Создать `.env` на основе `.env.example` и при необходимости отредактировать значения:
 
 ```env
 OLLAMA_URL=http://127.0.0.1:11434/api/generate
@@ -56,11 +56,20 @@ npm start
 
 ## Формат AI-ответов
 
-Оба AI-эндпоинта возвращают:
+`POST /ai/improve-description`:
 
 ```json
 {
   "message": "..."
+}
+```
+
+`POST /ai/suggest-price`:
+
+```json
+{
+  "message": "...",
+  "price": "32000000"
 }
 ```
 

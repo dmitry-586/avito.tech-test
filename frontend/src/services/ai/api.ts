@@ -1,5 +1,5 @@
 import { api } from '../api'
-import type { AiEndpointIn, AiEndpointOut } from './types'
+import type { AiEndpointIn, AiEndpointOut, SuggestPriceOut } from './types'
 
 interface RequestOptions {
   signal?: AbortSignal
@@ -21,8 +21,8 @@ export const improveDescription = async (
 export const suggestPrice = async (
   payload: AiEndpointIn,
   options?: RequestOptions,
-): Promise<AiEndpointOut> => {
-  const { data } = await api.post<AiEndpointOut>(
+): Promise<SuggestPriceOut> => {
+  const { data } = await api.post<SuggestPriceOut>(
     '/ai/suggest-price',
     payload,
     { signal: options?.signal, timeout: 30_000 },

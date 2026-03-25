@@ -1,8 +1,4 @@
-import type {
-  ItemCard,
-  ItemCategory,
-  ItemListQueryBase,
-} from '@/shared/types'
+import type { ItemCard, ItemCategory, ItemListQueryBase } from '@/shared/types'
 import type { SortValue as ListSortValue } from './constants'
 
 export type ViewVariant = 'default' | 'full-width'

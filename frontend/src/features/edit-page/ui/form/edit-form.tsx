@@ -69,9 +69,7 @@ export function EditForm({ item, itemId }: EditFormProps) {
         register={register}
         descriptionLength={descriptionLength}
         error={errors.description?.message}
-        aiControl={
-          <AiResponseControl {...ai.description} />
-        }
+        aiControl={<AiResponseControl {...ai.description} />}
       />
 
       <EditFormActions

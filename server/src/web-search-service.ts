@@ -1,9 +1,24 @@
 import type { SuggestPriceInput } from './validation.ts';
 
+const parseEnvNumber = (
+  raw: string | undefined,
+  fallback: number,
+): number => {
+  if (!raw || raw.trim().length === 0) {
+    return fallback;
+  }
+
+  const parsed = Number(raw.replace(/_/g, '').trim());
+  return Number.isFinite(parsed) ? parsed : fallback;
+};
+
 const WEB_SEARCH_ENABLED = process.env.WEB_SEARCH_ENABLED?.trim() !== 'false';
-const WEB_SEARCH_TIMEOUT_MS = Number(process.env.WEB_SEARCH_TIMEOUT_MS ?? 10_000);
-const WEB_SEARCH_RESULTS_LIMIT = Number(process.env.WEB_SEARCH_RESULTS_LIMIT ?? 6);
-const WEB_SEARCH_PAGE_FETCH_LIMIT = Number(process.env.WEB_SEARCH_PAGE_FETCH_LIMIT ?? 2);
+const WEB_SEARCH_TIMEOUT_MS = parseEnvNumber(process.env.WEB_SEARCH_TIMEOUT_MS, 10_000);
+const WEB_SEARCH_RESULTS_LIMIT = parseEnvNumber(process.env.WEB_SEARCH_RESULTS_LIMIT, 6);
+const WEB_SEARCH_PAGE_FETCH_LIMIT = parseEnvNumber(
+  process.env.WEB_SEARCH_PAGE_FETCH_LIMIT,
+  2,
+);
 
 type SearchResult = {
   title: string;

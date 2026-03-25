@@ -25,7 +25,7 @@ export function EditMainInfoSection({
   register,
 }: MainInfoSectionProps) {
   return (
-    <div className='flex flex-col gap-4 mt-4'>
+    <div className='mt-4 flex flex-col gap-4'>
       <EditSelect
         control={control}
         name='category'

@@ -53,9 +53,15 @@ function getItemParamsRows(item: ItemDetails): RowInput[] {
             ? REAL_ESTATE_TYPE_LABELS[item.params.type]
             : undefined,
         },
-        { label: ITEM_PARAMS_LABELS.real_estate.address, value: item.params.address },
+        {
+          label: ITEM_PARAMS_LABELS.real_estate.address,
+          value: item.params.address,
+        },
         { label: ITEM_PARAMS_LABELS.real_estate.area, value: item.params.area },
-        { label: ITEM_PARAMS_LABELS.real_estate.floor, value: item.params.floor },
+        {
+          label: ITEM_PARAMS_LABELS.real_estate.floor,
+          value: item.params.floor,
+        },
       ]
 
     case 'electronics':
@@ -66,15 +72,24 @@ function getItemParamsRows(item: ItemDetails): RowInput[] {
             ? ELECTRONICS_TYPE_LABELS[item.params.type]
             : undefined,
         },
-        { label: ITEM_PARAMS_LABELS.electronics.brand, value: item.params.brand },
-        { label: ITEM_PARAMS_LABELS.electronics.model, value: item.params.model },
+        {
+          label: ITEM_PARAMS_LABELS.electronics.brand,
+          value: item.params.brand,
+        },
+        {
+          label: ITEM_PARAMS_LABELS.electronics.model,
+          value: item.params.model,
+        },
         {
           label: ITEM_PARAMS_LABELS.electronics.condition,
           value: item.params.condition
             ? ELECTRONICS_CONDITION_LABELS[item.params.condition]
             : undefined,
         },
-        { label: ITEM_PARAMS_LABELS.electronics.color, value: item.params.color },
+        {
+          label: ITEM_PARAMS_LABELS.electronics.color,
+          value: item.params.color,
+        },
       ]
   }
 }
@@ -115,4 +130,3 @@ export function getItemParamsPresentation(
 
   return { filledParams, missingParams }
 }
-

@@ -118,4 +118,3 @@ export function mapFormToUpdatePayload(values: EditFormValues): UpdateItemIn {
       )
   }
 }
-
