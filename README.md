@@ -32,6 +32,7 @@ ollama serve
 
 ```powershell
 cd C:\MyProjects\avito.tech-test
+# Перед запуском создайте server/.env:
 docker compose up --build
 ```
 
